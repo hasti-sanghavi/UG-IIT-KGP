@@ -17,7 +17,7 @@
   --tx:#0B1F4B;  --sub:#6B7280;  --dim:#9CA3AF;  --wh:#ffffff;
   --topbg:rgba(255,255,255,.96);
   --navbg:#f0f5ff;  --navbr:rgba(11,61,145,.1);
-  --sh-n:rgba(11,61,145,.05);
+  --sh-n:rgba(11,61,145,.28);
   --nw:210px; --th:56px;
 }
 [data-theme="dark"] {
@@ -26,7 +26,7 @@
   --tx:#dce8ff; --sub:#8fa4cc; --dim:#4a6080; --wh:#ffffff;
   --topbg:rgba(7,18,43,.96);
   --navbg:#0a1835; --navbr:rgba(100,149,237,.12);
-  --sh-n:rgba(100,149,237,.08);
+  --sh-n:rgba(100,149,237,.32);
   --lblue:#0a1835; --b10:rgba(100,149,237,.08); --b20:rgba(100,149,237,.18);
   --r10:rgba(227,28,61,.08); --r20:rgba(227,28,61,.18);
 }
@@ -55,7 +55,6 @@ body.hov #cr{width:38px;height:38px;border-color:#0B3D91}
 .tb-mid{font-size:.65rem;color:var(--sub)}
 .tb-right{display:flex;align-items:center;gap:.8rem}
 .tb-tag{font-size:.58rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.22rem .7rem;border:1px solid var(--b20);color:var(--blue);background:var(--lblue)}
-/* Theme toggle */
 .theme-btn{background:none;border:1px solid var(--br2);color:var(--sub);padding:.22rem .6rem;font-size:.65rem;font-weight:600;cursor:none;transition:all .2s;letter-spacing:.05em;font-family:'Sora',sans-serif}
 .theme-btn:hover{border-color:var(--blue);color:var(--blue)}
 
@@ -112,8 +111,6 @@ section.alt{background:var(--s1)}
 .hero-h1 .red{color:var(--red)}
 .hero-h1 .dim{color:var(--dim);font-weight:300}
 .hero-desc{margin-top:1.4rem;font-size:.92rem;line-height:1.7;color:var(--sub);max-width:560px;margin-left:auto;margin-right:auto;opacity:0;animation:au .6s .4s forwards}
-
-/* KPI strip — 4 tiles in a row, centered */
 .hero-kpis{display:inline-flex;gap:0;margin-top:2.5rem;border:1px solid var(--br);background:var(--br);opacity:0;animation:au .6s .55s forwards;box-shadow:0 4px 24px rgba(11,61,145,.06)}
 .hk{padding:1.4rem 2.2rem;border-right:1px solid var(--br);background:var(--card);transition:background .2s}
 .hk:last-child{border-right:none}
@@ -121,11 +118,8 @@ section.alt{background:var(--s1)}
 .hk-v{font-family:'Sora',sans-serif;font-size:2.4rem;font-weight:800;letter-spacing:-.04em;line-height:1;color:#0B3D91}
 .hk-v .r{color:#0B3D91}
 .hk-l{font-size:.62rem;color:var(--sub);margin-top:.25rem;text-transform:uppercase;letter-spacing:.09em}
-
-/* Hero right stat panel — REMOVED */
 .hero-r{display:none}
 .hstat{display:none}
-
 .hero-scroll{position:absolute;bottom:1.8rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.35rem;opacity:0;animation:au .5s 1.1s forwards}
 .sc-b{width:1px;height:32px;background:linear-gradient(to bottom,#0B3D91,transparent);animation:sb 2s 1.3s infinite}
 @keyframes sb{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
@@ -144,21 +138,108 @@ section.alt{background:var(--s1)}
 .ag-s{font-size:.71rem;color:var(--sub);line-height:1.4}
 
 /* ═══════════════════════════════════════════════════
-   PRE-ENROLLMENT
+   STAIRCASE ORG CHART
 ═══════════════════════════════════════════════════ */
-.flow-wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--br);margin-bottom:1px}
-.fc{background:var(--card);padding:1.3rem 1.1rem;position:relative;display:flex;flex-direction:column}
-.fc.last{grid-column:span 1}
-.fc-top{position:absolute;top:0;left:0;right:0;height:2px;background:var(--br2);transition:background .25s}
-.fc.act .fc-top{background:#0B3D91}.fc:hover .fc-top{background:#0B3D91}
-.fc-n{width:26px;height:26px;border-radius:50%;border:1.5px solid rgba(11,61,145,.35);display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-size:.7rem;font-weight:700;color:#0B3D91;margin-bottom:.9rem;transition:all .25s;flex-shrink:0}
-[data-theme="dark"] .fc-n{border-color:rgba(100,149,237,.4);color:#7eaaff}
-.fc.act .fc-n{background:#0B3D91;border-color:#0B3D91;color:#fff}
-.fc-t{font-size:.8rem;font-weight:700;color:var(--tx);margin-bottom:.4rem;font-family:'Sora',sans-serif;line-height:1.2}
-.fc-d{font-size:.7rem;color:var(--sub);line-height:1.55}
-.fc-b{display:inline-block;margin-top:.7rem;font-size:.59rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:.16rem .5rem;background:var(--b10);border:1px solid var(--b20);color:var(--blue);width:fit-content}
-.fn{padding:.8rem 1.2rem;background:var(--b10);border-left:3px solid var(--blue);font-size:.76rem;color:var(--sub)}
-.fn strong{color:var(--blue)}
+.stair-org{width:100%;overflow-x:auto}
+
+/* Leadership staircase */
+.stair-leadership{display:flex;flex-direction:column;gap:0;margin-bottom:2rem}
+.stair-row{display:flex;align-items:flex-start}
+.stair-spacer{flex-shrink:0}
+.stair-card{background:var(--card);border:1px solid var(--br);padding:1.1rem 1.4rem;min-width:320px;max-width:420px;position:relative;transition:border-color .2s,background .2s,transform .15s;flex-shrink:0}
+.s-desc{font-size:.72rem;color:var(--sub);line-height:1.55;margin-top:.45rem}
+.stair-card.tier-0 .s-desc{color:rgba(255,255,255,.72)}
+.stair-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--blue)}
+.stair-card:hover{border-color:rgba(11,61,145,.35);background:var(--b10);transform:translateX(3px)}
+.stair-card.tier-0{background:var(--blue);border-color:var(--blue)}
+.stair-card.tier-0::before{background:#E31C3D}
+.stair-card.tier-0:hover{background:#0a3280;transform:translateX(3px)}
+.stair-card.tier-1{background:var(--s2);border-color:var(--br2)}
+.stair-card.tier-1::before{background:var(--blue)}
+.stair-card.tier-2{background:var(--card)}
+.stair-card.tier-2::before{background:rgba(11,61,145,.4)}
+
+.sc-step-line{display:flex;flex-direction:column;justify-content:flex-start;align-items:center;width:2px;position:relative;margin-left:0}
+.sc-vert{width:2px;flex:1;min-height:20px;background:linear-gradient(to bottom,var(--blue),rgba(11,61,145,.2))}
+.sc-horiz{height:2px;background:linear-gradient(to right,rgba(11,61,145,.2),var(--blue));flex-shrink:0}
+
+.s-name{font-family:'Sora',sans-serif;font-size:.88rem;font-weight:700;color:var(--tx);letter-spacing:-.01em;margin-bottom:.18rem}
+.stair-card.tier-0 .s-name{color:#fff}
+.s-role{font-size:.68rem;color:var(--sub);line-height:1.3}
+.stair-card.tier-0 .s-role{color:rgba(255,255,255,.7)}
+.stair-card.tier-1 .s-role{color:var(--sub)}
+.s-badge{display:inline-block;font-size:.58rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:.13rem .45rem;background:rgba(11,61,145,.1);color:var(--blue);border:1px solid var(--b20);margin-top:.35rem}
+.stair-card.tier-0 .s-badge{background:rgba(255,255,255,.15);color:#fff;border-color:rgba(255,255,255,.25)}
+
+/* Connector arrow from leadership to support section */
+.stair-connector{display:flex;align-items:center;gap:.6rem;margin:1.5rem 0 1rem;padding-left:.5rem}
+.stair-connector-line{flex:1;height:1px;background:linear-gradient(to right,var(--blue),rgba(11,61,145,.15))}
+.stair-connector-label{font-size:.58rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--blue);font-family:'Sora',sans-serif;background:var(--lblue);padding:.18rem .6rem;white-space:nowrap}
+
+/* Support team grid */
+.support-section-title{font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);font-family:'Sora',sans-serif;background:var(--lblue);padding:.15rem .55rem;display:inline-block;margin-bottom:1rem}
+.support-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--br)}
+.support-card{background:var(--card);padding:1.1rem 1.2rem;border-top:2px solid var(--br2);transition:border-top-color .2s,background .2s}
+.support-card:hover{border-top-color:var(--blue);background:var(--b10)}
+.sc-icon{font-size:1.2rem;margin-bottom:.5rem}
+.sc-name{font-family:'Sora',sans-serif;font-size:.82rem;font-weight:700;color:var(--tx);margin-bottom:.15rem;letter-spacing:-.01em}
+.sc-role{font-size:.67rem;color:var(--blue);font-weight:600;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em}
+.sc-desc{font-size:.69rem;color:var(--sub);line-height:1.5}
+
+/* ═══════════════════════════════════════════════════
+   PRE-ENROLLMENT / LEARNER JOURNEY — 9 steps
+═══════════════════════════════════════════════════ */
+.journey-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--br);margin-bottom:1px}
+.jc{background:var(--card);padding:1.25rem 1.2rem;position:relative;display:flex;flex-direction:column;transition:background .2s}
+.jc:hover{background:var(--b10)}
+.jc-accent{position:absolute;top:0;left:0;right:0;height:3px;background:var(--br2);transition:background .25s}
+.jc:hover .jc-accent,.jc.act .jc-accent{background:#0B3D91}
+.jc-num{font-family:'Sora',sans-serif;font-size:1.6rem;font-weight:800;letter-spacing:-.04em;color:rgba(11,61,145,.18);line-height:1;margin-bottom:.6rem;transition:color .2s}
+.jc:hover .jc-num{color:rgba(11,61,145,.35)}
+.jc-title{font-size:.82rem;font-weight:700;color:var(--tx);margin-bottom:.5rem;font-family:'Sora',sans-serif;line-height:1.2}
+.jc-points{list-style:none;padding:0;margin:0}
+.jc-points li{font-size:.69rem;color:var(--sub);line-height:1.45;padding:.2rem 0;display:flex;gap:.45rem;align-items:flex-start}
+.jc-points li::before{content:'·';color:#0B3D91;flex-shrink:0;margin-top:.05rem;font-weight:700}
+.jc-badge{display:inline-block;margin-top:.6rem;font-size:.58rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.15rem .5rem;background:var(--b10);border:1px solid var(--b20);color:var(--blue)}
+
+/* ═══════════════════════════════════════════════════
+   ONBOARDING
+═══════════════════════════════════════════════════ */
+.ob-tabs{display:flex;gap:1px;background:var(--br);margin-bottom:1px}
+.ob-tab{flex:1;padding:.65rem 1rem;background:var(--card);font-size:.72rem;font-weight:600;color:var(--sub);text-align:center;cursor:none;transition:all .2s;font-family:'Sora',sans-serif;border-bottom:2px solid transparent}
+.ob-tab.act{color:var(--blue);border-bottom-color:var(--blue);background:var(--b10)}
+.ob-pane{display:none}
+.ob-pane.act{display:block}
+
+.ob-two{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--br)}
+.ob-col{background:var(--card);padding:1.2rem 1.4rem}
+.ob-col-title{font-size:.6rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);margin-bottom:.8rem;margin-top:.8rem;font-family:'Sora',sans-serif}
+.ob-col-title:first-child{margin-top:0}
+.ob-li{display:flex;align-items:flex-start;gap:.5rem;padding:.38rem 0;border-bottom:1px solid var(--br);font-size:.78rem;color:var(--tx)}
+.ob-li:last-child{border-bottom:none}
+.ob-li::before{content:'·';color:#0B3D91;flex-shrink:0;margin-top:.05rem}
+
+.ob-note{padding:.75rem 1.2rem;background:var(--b10);border-left:3px solid var(--blue);font-size:.75rem;color:var(--sub);margin-top:1px}
+.ob-note strong{color:var(--blue)}
+
+.ob-three{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--br)}
+
+.eval-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--br);margin-bottom:1px}
+.eval-c{background:var(--card);padding:1rem 1.2rem;text-align:center}
+.eval-v{font-family:'Sora',sans-serif;font-size:.9rem;font-weight:700;color:var(--tx)}
+
+.ob-criteria{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--br);margin-bottom:1px}
+.crit{background:var(--card);padding:.85rem 1.2rem;font-size:.77rem}
+.crit.pass{border-left:3px solid #16a34a;color:#16a34a}
+.crit.fail{border-left:3px solid var(--red);color:var(--red)}
+
+.checklist-wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--br)}
+.cl-col{background:var(--card)}
+.cl-head{padding:.55rem 1rem;font-size:.58rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--blue);border-bottom:1px solid var(--br);background:var(--s2);font-family:'Sora',sans-serif}
+.cl-r{display:flex;align-items:center;gap:.55rem;padding:.45rem 1rem;font-size:.72rem;color:var(--sub);border-bottom:1px solid var(--br);transition:background .15s,color .15s}
+.cl-r:last-child{border-bottom:none}
+.cl-r:hover{background:var(--b10);color:var(--tx)}
+.cl-bx{width:9px;height:9px;flex-shrink:0;border:1px solid rgba(11,61,145,.25);border-radius:1px}
 
 /* ═══════════════════════════════════════════════════
    DEMOGRAPHICS
@@ -189,44 +270,6 @@ section.alt{background:var(--s1)}
 .dcb-t{height:3px;background:var(--s2);border-radius:2px;overflow:hidden;min-width:40px}
 .dcb-f{height:100%;width:0;background:var(--blue);border-radius:2px;transition:width 1.1s cubic-bezier(.25,.46,.45,.94) .3s}
 .dcb-p{font-size:.72rem;font-weight:700;color:var(--tx);text-align:right;font-family:'Sora',sans-serif;white-space:nowrap}
-
-/* ═══════════════════════════════════════════════════
-   ONBOARDING
-═══════════════════════════════════════════════════ */
-.ob-tabs{display:flex;gap:1px;background:var(--br);margin-bottom:1px}
-.ob-tab{flex:1;padding:.65rem 1rem;background:var(--card);font-size:.72rem;font-weight:600;color:var(--sub);text-align:center;cursor:none;transition:all .2s;font-family:'Sora',sans-serif;border-bottom:2px solid transparent}
-.ob-tab.act{color:var(--blue);border-bottom-color:var(--blue);background:var(--b10)}
-.ob-pane{display:none}
-.ob-pane.act{display:block}
-
-.ob-two{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--br)}
-.ob-col{background:var(--card);padding:1.2rem 1.4rem}
-.ob-col-title{font-size:.6rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);margin-bottom:.8rem;font-family:'Sora',sans-serif}
-.ob-li{display:flex;align-items:flex-start;gap:.5rem;padding:.38rem 0;border-bottom:1px solid var(--br);font-size:.78rem;color:var(--tx)}
-.ob-li:last-child{border-bottom:none}
-.ob-li::before{content:'·';color:#0B3D91;flex-shrink:0;margin-top:.05rem}
-
-.ob-note{padding:.75rem 1.2rem;background:var(--b10);border-left:3px solid var(--blue);font-size:.75rem;color:var(--sub);margin-top:1px}
-.ob-note strong{color:var(--blue)}
-
-.ob-three{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--br)}
-
-.eval-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--br);margin-bottom:1px}
-.eval-c{background:var(--card);padding:1rem 1.2rem;text-align:center}
-.eval-v{font-family:'Sora',sans-serif;font-size:.9rem;font-weight:700;color:var(--tx)}
-
-.ob-criteria{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--br);margin-bottom:1px}
-.crit{background:var(--card);padding:.85rem 1.2rem;font-size:.77rem}
-.crit.pass{border-left:3px solid #16a34a;color:#16a34a}
-.crit.fail{border-left:3px solid var(--red);color:var(--red)}
-
-.checklist-wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--br)}
-.cl-col{background:var(--card)}
-.cl-head{padding:.55rem 1rem;font-size:.58rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--blue);border-bottom:1px solid var(--br);background:var(--s2);font-family:'Sora',sans-serif}
-.cl-r{display:flex;align-items:center;gap:.55rem;padding:.45rem 1rem;font-size:.72rem;color:var(--sub);border-bottom:1px solid var(--br);transition:background .15s,color .15s}
-.cl-r:last-child{border-bottom:none}
-.cl-r:hover{background:var(--b10);color:var(--tx)}
-.cl-bx{width:9px;height:9px;flex-shrink:0;border:1px solid rgba(11,61,145,.25);border-radius:1px}
 
 /* ═══════════════════════════════════════════════════
    SOP
@@ -274,29 +317,6 @@ section.alt{background:var(--s1)}
 .we-note{font-size:.64rem;color:var(--dim);line-height:1.5;padding:.6rem .8rem;background:var(--s2);border-radius:2px}
 
 /* ═══════════════════════════════════════════════════
-   ORG CHART
-═══════════════════════════════════════════════════ */
-.org-tree{display:flex;flex-direction:column;align-items:center;padding:1rem 0}
-.on{display:flex;flex-direction:column;align-items:center;text-align:center;background:var(--card);border:1px solid var(--br);padding:.75rem 1.4rem;min-width:160px;transition:border-color .2s,background .2s}
-.on:hover{border-color:rgba(11,61,145,.4);background:var(--r10)}
-.on.hod{background:var(--s2);border-color:var(--br2);min-width:185px}
-.on.dir{background:var(--blue);border-color:var(--blue);min-width:185px}
-.on.dir:hover{background:#0a3280}
-.on-name{font-family:'Sora',sans-serif;font-size:.84rem;font-weight:700;color:var(--tx);letter-spacing:-.01em}
-.on.dir .on-name{color:#fff}
-.on-role{font-size:.68rem;color:var(--sub);margin-top:.12rem}
-.on.dir .on-role{color:rgba(255,255,255,.7)}
-.on-badge{font-size:.62rem;color:#0B3D91;margin-top:.1rem;font-weight:600}
-.on.dir .on-badge{color:rgba(255,255,255,.85)}
-.ov{width:1px;height:22px;background:linear-gradient(to bottom,rgba(11,61,145,.4),rgba(11,61,145,.15))}
-.oh{display:flex;align-items:flex-start;position:relative;justify-content:center}
-.oh::before{content:'';position:absolute;top:0;left:25%;right:25%;height:1px;background:rgba(11,61,145,.3)}
-.oh-c{flex:1;display:flex;flex-direction:column;align-items:center}
-.oh-sub{display:flex;align-items:flex-start;position:relative;justify-content:center;width:360px;max-width:100%}
-.oh-sub::before{content:'';position:absolute;top:0;left:25%;right:25%;height:1px;background:rgba(11,61,145,.3)}
-.oh-sc{flex:1;display:flex;flex-direction:column;align-items:center}
-
-/* ═══════════════════════════════════════════════════
    QUERIES
 ═══════════════════════════════════════════════════ */
 .q-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--br)}
@@ -335,7 +355,6 @@ footer{background:#0B3D91;padding:1.8rem 3rem;display:grid;grid-template-columns
 .ft-contact a:hover{color:#fff}
 .ft-btm{grid-column:span 2;border-top:1px solid rgba(255,255,255,.15);padding-top:.9rem;display:flex;justify-content:space-between;font-size:.61rem;color:rgba(255,255,255,.45);margin-top:.9rem}
 
-/* ── MOBILE ───────────────────────────────────────── */
 /* ── EMAIL MODAL ──────────────────────────────────── */
 #email-modal{position:fixed;inset:0;z-index:1000;display:none;align-items:center;justify-content:center;padding:1rem}
 #email-modal.open{display:flex}
@@ -355,8 +374,9 @@ footer{background:#0B3D91;padding:1.8rem 3rem;display:grid;grid-template-columns
   section{padding:2rem 1.2rem}
   #hero{padding:2rem 1.2rem}
   .hero-kpis{flex-wrap:wrap;justify-content:center}
-  .ag-grid,.flow-wrap,.demo-top,.demo-grid,.sop-wrap,.sop-nums,.wb-wrap,.q-grid,#demo{grid-template-columns:1fr}
+  .ag-grid,.journey-grid,.demo-top,.demo-grid,.sop-wrap,.sop-nums,.wb-wrap,.q-grid,#demo{grid-template-columns:1fr}
   .ob-two,.ob-three,.eval-row,.ob-criteria,.checklist-wrap{grid-template-columns:1fr}
+  .support-grid{grid-template-columns:1fr 1fr}
   footer{grid-template-columns:1fr}.ft-contact{text-align:left}
 }
 </style>
@@ -366,16 +386,11 @@ footer{background:#0B3D91;padding:1.8rem 3rem;display:grid;grid-template-columns
 
 <!-- TOPBAR -->
 <div id="tb">
-  <!-- LOGOS -->
   <div class="tb-logos">
-    <!-- upGrad wordmark — text based -->
     <span style="font-family:'Sora',sans-serif;font-size:1.2rem;font-weight:900;letter-spacing:-.04em;line-height:1">
       <span style="color:#E31C3D">up</span><span style="color:#E31C3D">Grad</span>
     </span>
-
     <div class="tb-logo-sep"></div>
-
-    <!-- IIT Kharagpur wordmark — text based -->
     <div style="display:flex;flex-direction:column;justify-content:center;line-height:1.25">
       <span style="font-family:'Sora',sans-serif;font-size:.82rem;font-weight:800;color:#0B3D91;letter-spacing:-.01em">IIT Kharagpur</span>
       <span style="font-family:'DM Sans',sans-serif;font-size:.58rem;color:var(--sub);letter-spacing:.03em;text-transform:uppercase">Indian Institute of Technology</span>
@@ -410,7 +425,7 @@ footer{background:#0B3D91;padding:1.8rem 3rem;display:grid;grid-template-columns
   </div>
   <div class="sf">
     <strong>Student Support</strong>
-    studentsupport@upgrad.com<br>1800-210-2020<br>
+    <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="afdcdbdacbcac1dbdcdadfdfc0dddbefdadfc8ddcecb81ccc0c2">[email&#160;protected]</a><br>1800-210-2020<br>
     <span style="color:var(--red)">mAI-Ask &middot; 24/7</span>
   </div>
 </nav>
@@ -452,53 +467,233 @@ footer{background:#0B3D91;padding:1.8rem 3rem;display:grid;grid-template-columns
   </div>
 </section>
 
-<!-- 01 TEAM STRUCTURE -->
-
-<section id="structure" class="">
-  <div class="sh rv"><div class="sh-n">01</div><div class="sh-b"><div class="sh-tag">Section 01</div><div class="sh-title">Team <em>Structure Overview</em></div><p class="sh-sub">Roles, responsibilities &amp; key points of contact for the IIT KGP program.</p></div></div>
+<!-- 01 TEAM STRUCTURE — STAIRCASE LAYOUT -->
+<section id="structure">
+  <div class="sh rv">
+    <div class="sh-n">01</div>
+    <div class="sh-b">
+      <div class="sh-tag">Section 01</div>
+      <div class="sh-title">Team <em>Structure Overview</em></div>
+      <p class="sh-sub">Roles, responsibilities &amp; key points of contact for the IIT KGP program.</p>
+    </div>
+  </div>
   <div class="sh-div"></div>
-  <div class="org-tree rv">
-    <div class="on hod"><div class="on-name">Ashish Nagar</div><div class="on-role">Head of Department</div></div>
-    <div class="ov"></div>
-    <div class="on dir"><div class="on-name">Vibhav Mishra</div><div class="on-role">Director</div></div>
-    <div class="ov"></div>
-    <div class="oh" style="width:580px;max-width:100%">
-      <div class="oh-c">
-        <div class="ov"></div>
-        <div class="on"><div class="on-name">Ankit Kitawat</div><div class="on-role">Live Sessions Manager</div><div class="on-badge">🖥 Live Session POC</div></div>
+
+  <!-- STAIRCASE LEADERSHIP -->
+  <div class="stair-org rv">
+
+    <!-- Tier 0: HOD -->
+    <div class="stair-row">
+      <div class="stair-card tier-0">
+        <div class="s-name">Ashish Nagar</div>
+        <div class="s-role">Head of Department</div>
+        <div class="s-badge">VP – Learning Excellence</div>
+        <div class="s-desc">Strategic leadership and vision for all learning excellence initiatives across the upGrad–IIT Kharagpur partnership.</div>
       </div>
-      <div class="oh-c">
-        <div class="ov"></div>
-        <div class="on"><div class="on-name">Ravi Pathak</div><div class="on-role">Assoc. Director — Learning Experience</div></div>
-        <div class="ov"></div>
-        <div class="oh-sub">
-          <div class="oh-sc"><div class="ov"></div><div class="on"><div class="on-name">Tushar Bagul</div><div class="on-role">Student Success Manager</div></div></div>
-          <div class="oh-sc"><div class="ov"></div><div class="on"><div class="on-name">Abhishek Mishra</div><div class="on-role">Delivery Manager</div></div></div>
+    </div>
+
+    <!-- connector line going down-right -->
+    <div style="display:flex;align-items:stretch;height:32px;margin-left:64px">
+      <div style="width:2px;background:linear-gradient(to bottom,#0B3D91,rgba(11,61,145,.3));flex-shrink:0"></div>
+    </div>
+
+    <!-- Tier 1: Director — indented -->
+    <div class="stair-row" style="margin-left:100px">
+      <div style="display:flex;align-items:center;margin-bottom:0">
+        <div style="width:40px;height:2px;background:linear-gradient(to right,rgba(11,61,145,.3),#0B3D91);flex-shrink:0;margin-right:0"></div>
+        <div class="stair-card tier-1">
+          <div class="s-name">Vibhav Mishra</div>
+          <div class="s-role">Director – Delivery | SS &amp; Financial Operations</div>
+          <div class="s-desc">Oversees end-to-end program delivery and ensures operational excellence.</div>
         </div>
       </div>
     </div>
+
+    <!-- connector going down-right again -->
+    <div style="display:flex;align-items:stretch;height:32px;margin-left:152px">
+      <div style="width:2px;background:linear-gradient(to bottom,#0B3D91,rgba(11,61,145,.3));flex-shrink:0"></div>
+    </div>
+
+    <!-- Tier 2: Assoc Director — further indented -->
+    <div class="stair-row" style="margin-left:200px">
+      <div style="display:flex;align-items:center">
+        <div style="width:40px;height:2px;background:linear-gradient(to right,rgba(11,61,145,.3),#0B3D91);flex-shrink:0"></div>
+        <div class="stair-card tier-2">
+          <div class="s-name">Ravi Pathak</div>
+          <div class="s-role">Associate Director – Delivery &amp; Student Success</div>
+          <div class="s-desc">Manages program execution and student satisfaction across all courses.</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /stair-org -->
+
+  <!-- Divider to support team -->
+  <div style="display:flex;align-items:center;gap:.8rem;margin:1.8rem 0 1.2rem">
+    <div style="height:1px;background:linear-gradient(to right,rgba(11,61,145,.35),rgba(11,61,145,.08));flex:1"></div>
+    <div style="font-size:.58rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#0B3D91;font-family:'Sora',sans-serif;background:var(--lblue);padding:.18rem .7rem;flex-shrink:0">Program Support &amp; Delivery Team</div>
+    <div style="height:1px;background:linear-gradient(to left,rgba(11,61,145,.35),rgba(11,61,145,.08));flex:1"></div>
   </div>
+
+  <!-- SUPPORT TEAM GRID — 4 columns, 7 people (4+3) -->
+  <div class="support-grid rv" style="grid-template-columns:repeat(4,1fr)">
+    <!-- Row 1 -->
+    <div class="support-card">
+      <div class="sc-icon">📋</div>
+      <div class="sc-name">Tushar Bagul</div>
+      <div class="sc-role">Student Success</div>
+      <div class="sc-desc">Oversees the Program Coordination team to guarantee a seamless learning experience, ensuring timely support for all learners throughout the program.</div>
+    </div>
+    <div class="support-card">
+      <div class="sc-icon">🚀</div>
+      <div class="sc-name">Abhishek Mishra</div>
+      <div class="sc-role">Delivery Manager</div>
+      <div class="sc-desc">Manages Data Science, Machine Learning, and Gen AI course delivery with focus on engagement and completion.</div>
+    </div>
+    <div class="support-card">
+      <div class="sc-icon">🖥</div>
+      <div class="sc-name">Ankit Kitawat</div>
+      <div class="sc-role">Live Sessions Manager</div>
+      <div class="sc-desc">Oversees EPGP in Agentic &amp; Applied AI and PCP in Data Science and Gen AI program execution.</div>
+    </div>
+    <div class="support-card">
+      <div class="sc-icon">⚙️</div>
+      <div class="sc-name">Hasti Sanghavi</div>
+      <div class="sc-role">Product &amp; MIS</div>
+      <div class="sc-desc">Driving seamless learner journeys, operational excellence, and scalable process innovation across the LMS ecosystem.</div>
+    </div>
+  </div>
+
 </section>
 
-<!-- 02 LEARNER JOURNEY -->
-
+<!-- 02 LEARNER JOURNEY — 9 STEPS -->
 <section id="enrollment" class="alt">
-  <div class="sh rv"><div class="sh-n">02</div><div class="sh-b"><div class="sh-tag">Section 02</div><div class="sh-title">Process Overview: <em>Learner Journey</em></div><p class="sh-sub">End-to-end lifecycle from onboarding to completion — pre-enrollment flow, platform access &amp; program structure.</p></div></div>
-  <div class="sh-div"></div>
-  <div class="flow-wrap">
-    <div class="fc act rv"><div class="fc-top"></div><div class="fc-n">01</div><div class="fc-t">Program Overview</div><div class="fc-d">Learner views program page. 8 Mo · IIT KGP Faculty · Mar 31, 2026.</div></div>
-    <div class="fc rv"><div class="fc-top"></div><div class="fc-n">02</div><div class="fc-t">Login / Sign Up</div><div class="fc-d">Learner creates account or logs in to upGrad.</div></div>
-    <div class="fc rv"><div class="fc-top"></div><div class="fc-n">03</div><div class="fc-t">OTP Verification</div><div class="fc-d">Phone verified via OTP. Account deduplication check.</div><div class="fc-b">~2 min</div></div>
-    <div class="fc rv"><div class="fc-top"></div><div class="fc-n">04</div><div class="fc-t">Let's Get Started</div><div class="fc-d">Admission overview. Screening → Review → Payment flow.</div></div>
-    <div class="fc rv"><div class="fc-top"></div><div class="fc-n">05</div><div class="fc-t">Basic Details</div><div class="fc-d">Name, phone, city, DOB, degree, marks, father's name.</div><div class="fc-b">~5 min</div></div>
-    <div class="fc rv"><div class="fc-top"></div><div class="fc-n">06</div><div class="fc-t">Application Review &amp; Shortlisting</div><div class="fc-d">Team reviews and shortlists the applicant.</div></div>
-    <div class="fc rv" style="grid-column:span 2"><div class="fc-top"></div><div class="fc-n">07</div><div class="fc-t">Payment</div><div class="fc-d">Block payment or full payment to confirm seat in the program.</div></div>
+  <div class="sh rv">
+    <div class="sh-n">02</div>
+    <div class="sh-b">
+      <div class="sh-tag">Section 02</div>
+      <div class="sh-title">Process Overview: <em>Learner Journey</em></div>
+      <p class="sh-sub">End-to-end lifecycle from lead to post-enrollment — 9 key stages of the learner journey.</p>
+    </div>
   </div>
-  <div class="fn rv"><strong>📹 Video recording</strong> of the pre-enrollment journey is available — <a href="https://ueducation-my.sharepoint.com/:v:/g/personal/shivam_tiwari_upgrad_com/IQBPVM-rTTusTaUhS_4si9a8AafwhH4pBmyle9R13EDr-oE?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D&e=spxsA5" target="_blank" style="color:#0B3D91;font-weight:700;text-decoration:none">Watch walkthrough ↗</a></div>
+  <div class="sh-div"></div>
+
+  <!-- 9-step journey grid: 3 columns × 3 rows -->
+  <div class="journey-grid rv">
+    <!-- Step 1 -->
+    <div class="jc act">
+      <div class="jc-accent"></div>
+      <div class="jc-num">01</div>
+      <div class="jc-title">Lead Drop &amp; Assignment</div>
+      <ul class="jc-points">
+        <li><strong>Drop:</strong> Website, Insta page (Referral) &amp; Marketing campaigns</li>
+        <li><strong>Assignment:</strong> To designated AC</li>
+      </ul>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="jc">
+      <div class="jc-accent"></div>
+      <div class="jc-num">02</div>
+      <div class="jc-title">Counselling Journey – 1</div>
+      <ul class="jc-points">
+        <li>Immediate connect</li>
+        <li>Probing &amp; Profiling</li>
+        <li>Pitching relevant program</li>
+      </ul>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="jc">
+      <div class="jc-accent"></div>
+      <div class="jc-num">03</div>
+      <div class="jc-title">Counselling Journey – 2</div>
+      <ul class="jc-points">
+        <li>VC, Alumni &amp; Coach connect</li>
+        <li>Objection handling</li>
+      </ul>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="jc">
+      <div class="jc-accent"></div>
+      <div class="jc-num">04</div>
+      <div class="jc-title">Block Payment</div>
+      <ul class="jc-points">
+        <li>Application Submission</li>
+        <li>Appearing test / interview*</li>
+        <li>Shortlisting &amp; Offer letter</li>
+        <li>Block payment &amp; fee waiver</li>
+      </ul>
+    </div>
+
+    <!-- Step 5 -->
+    <div class="jc">
+      <div class="jc-accent"></div>
+      <div class="jc-num">05</div>
+      <div class="jc-title">Program Access</div>
+      <ul class="jc-points">
+        <li>Automated email with payment acknowledgement</li>
+        <li>Automated email with guidelines to access Learn / Prism Platform</li>
+      </ul>
+    </div>
+
+    <!-- Step 6 -->
+    <div class="jc">
+      <div class="jc-accent"></div>
+      <div class="jc-num">06</div>
+      <div class="jc-title">Balance Payment Closure</div>
+      <ul class="jc-points">
+        <li>Self payment — Debit, Credit card, Net banking &amp; UPI</li>
+        <li>Third party facilitators — no cost &amp; standard EMI available</li>
+        <li>TAT: 7 Days</li>
+      </ul>
+      <div class="jc-badge">TAT 7 Days</div>
+    </div>
+
+    <!-- Step 7 -->
+    <div class="jc">
+      <div class="jc-accent"></div>
+      <div class="jc-num">07</div>
+      <div class="jc-title">Document Submission</div>
+      <ul class="jc-points">
+        <li>As per university guidelines</li>
+        <li>TAT: 7 days</li>
+      </ul>
+      <div class="jc-badge">TAT 7 Days</div>
+    </div>
+
+    <!-- Step 8 -->
+    <div class="jc">
+      <div class="jc-accent"></div>
+      <div class="jc-num">08</div>
+      <div class="jc-title">Onboarding Call</div>
+      <ul class="jc-points">
+        <li>Welcome &amp; reiteration of program specification</li>
+        <li>TAT: within 3 days post block payment</li>
+      </ul>
+      <div class="jc-badge">TAT 3 Days</div>
+    </div>
+
+    <!-- Step 9 -->
+    <div class="jc">
+      <div class="jc-accent"></div>
+      <div class="jc-num">09</div>
+      <div class="jc-title">Post Enrollment</div>
+      <ul class="jc-points">
+        <li>UB assignment</li>
+        <li>Welcome / Introductory Webinar</li>
+        <li>Asynchronous &amp; Synchronous content accessibility</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Keep original video link -->
+  <div class="ob-note rv" style="margin-top:1px"><strong>📹 Video recording</strong> of the pre-enrollment journey is available — <a href="https://ueducation-my.sharepoint.com/:v:/g/personal/shivam_tiwari_upgrad_com/IQBPVM-rTTusTaUhS_4si9a8AafwhH4pBmyle9R13EDr-oE?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D&e=spxsA5" target="_blank" style="color:#0B3D91;font-weight:700;text-decoration:none">Watch walkthrough ↗</a></div>
 
   <div class="sh-div" style="margin-top:2rem"></div>
   <div style="font-size:.58rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#0B3D91;margin-bottom:1rem;font-family:'Sora',sans-serif;background:var(--lblue);padding:.15rem .5rem;display:inline-block">Onboarding Script · 21 Touchpoints</div>
-<!-- Tab nav -->
+  <!-- Tab nav -->
   <div class="ob-tabs">
     <div class="ob-tab act" onclick="showTab(0)">Welcome &amp; Basics</div>
     <div class="ob-tab" onclick="showTab(1)">Platform &amp; Structure</div>
@@ -640,7 +835,6 @@ footer{background:#0B3D91;padding:1.8rem 3rem;display:grid;grid-template-columns
 </section>
 
 <!-- 03 DEMOGRAPHICS -->
-
 <section id="demographics">
   <div class="sh rv"><div class="sh-n">03</div><div class="sh-b"><div class="sh-tag">Section 03</div><div class="sh-title">Learner <em>Demographics</em></div><p class="sh-sub">IIT KGP GenAI &amp; Agentic AI cohort profile — 482 enrolled learners.</p></div></div>
   <div class="sh-div"></div>
@@ -669,7 +863,6 @@ footer{background:#0B3D91;padding:1.8rem 3rem;display:grid;grid-template-columns
 </section>
 
 <!-- 04 GRIEVANCE -->
-
 <section id="grievance" class="alt">
   <div class="sh rv"><div class="sh-n">04</div><div class="sh-b"><div class="sh-tag">Section 04</div><div class="sh-title">Query &amp; Grievance <em>Handling</em></div><p class="sh-sub">Standard processes, escalation matrix &amp; timelines for learner queries and grievances.</p></div></div>
   <div class="sh-div"></div>
@@ -678,7 +871,7 @@ footer{background:#0B3D91;padding:1.8rem 3rem;display:grid;grid-template-columns
       <div class="ob-col-title">Query Channels</div>
       <div class="ob-li">Discussion Forum — for academic queries (TA-moderated)</div>
       <div class="ob-li">mAI-Ask Bot — 24/7 instant support on platform</div>
-      <div class="ob-li">Student Support Email — studentsupport@upgrad.com</div>
+      <div class="ob-li">Student Support Email — <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7b080f0e1f1e150f080e0b0b14090f3b0e0b1c091a1f55181416">[email&#160;protected]</a></div>
       <div class="ob-li">Helpline — 1800-210-2020 (Toll Free)</div>
       <div class="ob-li">Program Manager (Telegram: @Tushar_upgrad)</div>
     </div>
@@ -703,7 +896,6 @@ footer{background:#0B3D91;padding:1.8rem 3rem;display:grid;grid-template-columns
 </section>
 
 <!-- 05 EXPECTED QUERIES -->
-
 <section id="expected">
   <div class="sh rv"><div class="sh-n">05</div><div class="sh-b"><div class="sh-tag">Section 05</div><div class="sh-title">Expected Queries <em>During Sessions</em></div><p class="sh-sub">Common questions during Welcome Webinar &amp; Live Sessions — with recommended handling approach.</p></div></div>
   <div class="sh-div"></div>
@@ -731,9 +923,8 @@ footer{background:#0B3D91;padding:1.8rem 3rem;display:grid;grid-template-columns
 </section>
 
 <!-- 06 UNADDRESSED QUERIES -->
-
 <section id="clarifications" class="alt">
-  <div class="sh rv"><div class="sh-n">06</div><div class="sh-b"><div class="sh-tag">Section 06</div><div class="sh-title">Unaddressed Queries &amp; <em>Program Calendar</em></div><p class="sh-sub">Tracking pending queries from IIT Kharagpur · Overview of the program schedule. <a href="#" style="color:var(--blue);font-size:.75rem;font-weight:600">View full question list →</a></p></div></div>
+  <div class="sh rv"><div class="sh-n">06</div><div class="sh-b"><div class="sh-tag">Section 06</div><div class="sh-title">Unaddressed Queries &amp; <em>Program Calendar</em></div><p class="sh-sub">Tracking pending queries from IIT Kharagpur · Overview of the program schedule.</p><div style="margin-top:.7rem;display:flex;align-items:center;gap:.6rem;flex-wrap:wrap"><span style="font-size:.62rem;color:var(--sub)">Full question list:</span><a id="link-questions" href="#" target="_blank" style="display:inline-flex;align-items:center;gap:.35rem;font-size:.7rem;font-weight:700;color:#0B3D91;background:var(--lblue);border:1px solid var(--b20);padding:.22rem .65rem;text-decoration:none;font-family:'Sora',sans-serif;transition:background .15s" onmouseover="this.style.background='var(--s2)'" onmouseout="this.style.background='var(--lblue)'">↗ View Questions Doc</a><button onclick="promptLink('link-questions','Enter URL for the questions document:')" style="font-size:.62rem;color:var(--sub);background:none;border:1px dashed var(--br2);padding:.2rem .5rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s" onmouseover="this.style.borderColor='#0B3D91';this.style.color='#0B3D91'" onmouseout="this.style.borderColor='var(--br2)';this.style.color='var(--sub)'">✎ Set URL</button></div></div></div>
   <div class="sh-div"></div>
   <div class="q-grid">
     <div class="qc rv"><div class="q-tag">Prep &amp; Content</div><div class="q-txt">When and how will Prof. share prep notes / PPT? Are faculty comfortable sharing slides post-session?</div></div>
@@ -756,9 +947,8 @@ footer{background:#0B3D91;padding:1.8rem 3rem;display:grid;grid-template-columns
 </section>
 
 <!-- 07 SOP -->
-
 <section id="sop">
-  <div class="sh rv"><div class="sh-n">07</div><div class="sh-b"><div class="sh-tag">Section 07</div><div class="sh-title">Live Session <em>Guidelines (SOP)</em></div><p class="sh-sub">Standard operating procedures &amp; Do's and Don'ts for effective delivery.</p></div></div>
+  <div class="sh rv"><div class="sh-n">07</div><div class="sh-b"><div class="sh-tag">Section 07</div><div class="sh-title">Live Session <em>Guidelines (SOP)</em></div><p class="sh-sub">Standard operating procedures &amp; Do's and Don'ts for effective delivery.</p><div style="margin-top:.7rem;display:flex;align-items:center;gap:.6rem;flex-wrap:wrap"><span style="font-size:.62rem;color:var(--sub)">Full SOP document:</span><a id="link-sop" href="#" target="_blank" style="display:inline-flex;align-items:center;gap:.35rem;font-size:.7rem;font-weight:700;color:#0B3D91;background:var(--lblue);border:1px solid var(--b20);padding:.22rem .65rem;text-decoration:none;font-family:'Sora',sans-serif;transition:background .15s" onmouseover="this.style.background='var(--s2)'" onmouseout="this.style.background='var(--lblue)'">↗ View SOP Doc</a><button onclick="promptLink('link-sop','Enter URL for the SOP document:')" style="font-size:.62rem;color:var(--sub);background:none;border:1px dashed var(--br2);padding:.2rem .5rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s" onmouseover="this.style.borderColor='#0B3D91';this.style.color='#0B3D91'" onmouseout="this.style.borderColor='var(--br2)';this.style.color='var(--sub)'">✎ Set URL</button></div></div></div>
   <div class="sh-div"></div>
   <div class="sop-wrap">
     <div class="sop-c rv"><div class="sop-tag">Pre-Session</div><div class="sop-title">Before the Class</div><div class="si">Session link shared 24 hrs in advance</div><div class="si">Faculty prep notes distributed</div><div class="si">TA briefing completed</div><div class="si">Zoom room configured &amp; tested</div></div>
@@ -774,7 +964,6 @@ footer{background:#0B3D91;padding:1.8rem 3rem;display:grid;grid-template-columns
 </section>
 
 <!-- 08 DEMO -->
-
 <section id="demo" class="alt">
   <div class="demo-l rv">
     <div class="demo-tag-txt">Section 08</div>
@@ -792,9 +981,8 @@ footer{background:#0B3D91;padding:1.8rem 3rem;display:grid;grid-template-columns
 </section>
 
 <!-- 09 WEBINAR -->
-
 <section id="webinar">
-  <div class="sh rv"><div class="sh-n">09</div><div class="sh-b"><div class="sh-tag">Section 09</div><div class="sh-title">Welcome Webinar <em>Discussion</em></div><p class="sh-sub">PPT walkthrough · Session flow alignment · Dry run (if time permits / scheduled separately).</p></div></div>
+  <div class="sh rv"><div class="sh-n">09</div><div class="sh-b"><div class="sh-tag">Section 09</div><div class="sh-title">Welcome Webinar <em>Discussion</em></div><p class="sh-sub">PPT walkthrough · Session flow alignment · Dry run (if time permits / scheduled separately).</p><div style="margin-top:.7rem;display:flex;align-items:center;gap:.6rem;flex-wrap:wrap"><span style="font-size:.62rem;color:var(--sub)">Live session PPT:</span><a id="link-ppt" href="#" target="_blank" style="display:inline-flex;align-items:center;gap:.35rem;font-size:.7rem;font-weight:700;color:#0B3D91;background:var(--lblue);border:1px solid var(--b20);padding:.22rem .65rem;text-decoration:none;font-family:'Sora',sans-serif;transition:background .15s" onmouseover="this.style.background='var(--s2)'" onmouseout="this.style.background='var(--lblue)'">↗ View Webinar PPT</a><button onclick="promptLink('link-ppt','Enter URL for the Webinar PPT:')" style="font-size:.62rem;color:var(--sub);background:none;border:1px dashed var(--br2);padding:.2rem .5rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s" onmouseover="this.style.borderColor='#0B3D91';this.style.color='#0B3D91'" onmouseout="this.style.borderColor='var(--br2)';this.style.color='var(--sub)'">✎ Set URL</button></div></div></div>
   <div class="sh-div"></div>
   <div class="wb-wrap">
     <div class="wb-tl">
@@ -828,7 +1016,6 @@ footer{background:#0B3D91;padding:1.8rem 3rem;display:grid;grid-template-columns
 </section>
 
 <!-- 10 RESOURCES -->
-
 <section id="resources" class="alt">
   <div class="sh rv"><div class="sh-n">10</div><div class="sh-b"><div class="sh-tag">Section 10</div><div class="sh-title">Important Resources <em>&amp; Links</em></div><p class="sh-sub">Student Manual, key platforms and access links for learners and faculty.</p></div></div>
   <div class="sh-div"></div>
@@ -849,7 +1036,7 @@ footer{background:#0B3D91;padding:1.8rem 3rem;display:grid;grid-template-columns
     </div>
     <div class="ob-col rv">
       <div class="ob-col-title">Support Contacts</div>
-      <div class="ob-li">Email — studentsupport@upgrad.com</div>
+      <div class="ob-li">Email — <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7a090e0f1e1f140e090f0a0a15080e3a0f0a1d081b1e54191517">[email&#160;protected]</a></div>
       <div class="ob-li">Helpline — 1800-210-2020 (Toll Free)</div>
       <div class="ob-li">mAI-Ask Bot — 24/7 on platform</div>
       <div class="ob-li">Program Manager — @Tushar_upgrad (Telegram)</div>
@@ -865,9 +1052,9 @@ footer{background:#0B3D91;padding:1.8rem 3rem;display:grid;grid-template-columns
     <div class="ft-sub">Executive PG Certificate in Generative AI &amp; Agentic AI</div>
   </div>
   <div class="ft-contact">
-    <span>Student Support · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d8abacadbcbdb6acabada8a8b7aaac98ada8bfaab9bcf6bbb7b5">[email&#160;protected]</a></span>
+    <span>Student Support · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d1a2a5a4b5b4bfa5a2a4a1a1bea3a591a4a1b6a3b0b5ffb2bebc">[email&#160;protected]</a></span>
     <a href="tel:18002102020">1800-210-2020 (Toll Free)</a>
-    <span style="color:#0B3D91">mAI-Ask · 24/7 on Platform</span>
+    <span style="color:#90b4ff">mAI-Ask · 24/7 on Platform</span>
   </div>
   <div class="ft-btm">
     <span>Confidential · upGrad Education Pvt. Ltd. · March 2026</span>
@@ -887,34 +1074,27 @@ footer{background:#0B3D91;padding:1.8rem 3rem;display:grid;grid-template-columns
       <button class="em-close" onclick="document.getElementById('email-modal').classList.remove('open')">✕ Close</button>
     </div>
     <div class="em-scroll">
-      <!-- EMAIL TEMPLATE CONTENT (inline, rendered faithfully) -->
       <table width="100%" bgcolor="#f4f6f8" cellpadding="0" cellspacing="0" style="font-family:Arial,Helvetica,sans-serif">
       <tr><td align="center">
       <table width="650" bgcolor="#ffffff" cellpadding="0" cellspacing="0" style="border-radius:0;overflow:hidden;max-width:100%">
-
-      <!-- LOGO HEADER -->
       <tr>
         <td style="padding:20px 30px;text-align:center;border-bottom:1px solid #eee">
-          <span style="font-family:Arial,sans-serif;font-size:1.4rem;font-weight:900;color:var(--red);letter-spacing:-.02em">upGrad</span>
+          <span style="font-family:Arial,sans-serif;font-size:1.4rem;font-weight:900;color:#E31C3D;letter-spacing:-.02em">upGrad</span>
           <span style="font-size:18px;font-weight:bold;color:#aaa;margin:0 12px">×</span>
           <span style="font-family:Arial,sans-serif;font-size:1rem;font-weight:700;color:#333">IIT Kharagpur</span>
         </td>
       </tr>
-
-      <!-- HERO -->
       <tr>
         <td style="padding:30px 36px 20px;text-align:center">
-          <h2 style="margin:0 0 10px;color:var(--tx);font-size:1.4rem">Welcome to Your AI Learning Journey</h2>
+          <h2 style="margin:0 0 10px;color:#0B1F4B;font-size:1.4rem">Welcome to Your AI Learning Journey</h2>
           <p style="font-size:15px;color:#555;line-height:1.6;margin:0">
             Executive Post Graduate Certificate in <b>Generative AI &amp; Agentic AI</b><br>
             with <b>IIT Kharagpur</b> – <b>March 2026 Batch</b>
           </p>
         </td>
       </tr>
-
-      <!-- INTRO -->
       <tr>
-        <td style="padding:0 36px 22px;color:var(--sub);font-size:14px;line-height:1.7">
+        <td style="padding:0 36px 22px;color:#6B7280;font-size:14px;line-height:1.7">
           Dear Learner,<br><br>
           We are excited to inform you that your program is now <b>LIVE</b>.<br><br>
           You will experience a carefully designed learning journey through:
@@ -927,17 +1107,14 @@ footer{background:#0B3D91;padding:1.8rem 3rem;display:grid;grid-template-columns
           This blended learning model ensures a seamless and impactful experience.
         </td>
       </tr>
-
-      <!-- PROGRAM COORDINATOR -->
       <tr>
         <td style="padding:0 36px 22px">
-          <h3 style="color:var(--tx);font-size:1rem;margin:0 0 10px">Your Program Coordinator</h3>
-          <p style="font-size:14px;color:var(--sub);line-height:1.7;margin:0 0 8px">
+          <h3 style="color:#0B1F4B;font-size:1rem;margin:0 0 10px">Your Program Coordinator</h3>
+          <p style="font-size:14px;color:#6B7280;line-height:1.7;margin:0 0 8px">
             My name is <b>Tushar B</b> and I will be your Program Coordinator throughout this journey.
           </p>
           <p style="font-size:14px;margin:0 0 8px">Telegram: <b>@Tushar_upgrad</b></p>
-          <p style="font-size:14px;color:var(--sub);margin:0 0 6px">I will help you:</p>
-          <ul style="font-size:14px;color:var(--sub);margin:6px 0;padding-left:20px">
+          <ul style="font-size:14px;color:#6B7280;margin:6px 0;padding-left:20px">
             <li>Track your progress and upcoming deadlines</li>
             <li>Resolve non-academic queries</li>
             <li>Enable peer networking</li>
@@ -945,65 +1122,42 @@ footer{background:#0B3D91;padding:1.8rem 3rem;display:grid;grid-template-columns
           </ul>
         </td>
       </tr>
-
-      <!-- IMPORTANT ANNOUNCEMENTS -->
       <tr>
-        <td style="padding:0 36px 8px">
-          <h3 style="color:var(--tx);font-size:1rem;margin:0">Important Announcements</h3>
-        </td>
-      </tr>
-      <tr>
-        <td style="padding:0 36px 18px;font-size:14px;color:var(--sub);line-height:1.7">
+        <td style="padding:0 36px 18px;font-size:14px;color:#6B7280;line-height:1.7">
           <b>Help &amp; Support</b><br><br>
           For academic queries, please use the <b>Discussion Forum</b> on the learning platform where Teaching Assistants and peers will assist you.<br><br>
-          Please ensure the query is tagged correctly. Queries tagged as miscellaneous may be treated as peer discussions.<br><br>
-          For further assistance:<br><br>
           Telegram: <b>@Tushar_upgrad</b><br>
-          Email: <b><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b6c5c2c3d2d3d8c2c5c3c6c6d9c4c2f6c3c6d1c4d7d298d5d9db">[email&#160;protected]</a></b><br>
+          Email: <b><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5427202130313a20272124243b2620142124332635307a373b39">[email&#160;protected]</a></b><br>
           Response ETA: <b>24–48 working hours</b>
         </td>
       </tr>
-
-      <!-- LEARNING SCHEDULE -->
       <tr>
-        <td style="padding:0 36px 18px;font-size:14px;color:var(--sub);line-height:1.7">
+        <td style="padding:0 36px 18px;font-size:14px;color:#6B7280;line-height:1.7">
           <b>Learning Schedule</b><br><br>
           Your <b>Welcome Module</b> and <b>Preparatory Module</b> are now available on the platform.<br><br>
           Please complete them by <b>31st March 2026</b> as your live academic sessions begin from <b>4th April 2026</b>.
         </td>
       </tr>
-
-      <!-- CTA: PROGRAM CALENDAR -->
       <tr>
         <td align="center" style="padding:8px 36px 26px">
-          <a href="#" style="background:var(--red);color:white;padding:11px 26px;text-decoration:none;border-radius:4px;font-weight:bold;font-size:14px;display:inline-block">
-            View Program Calendar
-          </a>
+          <a href="#" style="background:#E31C3D;color:white;padding:11px 26px;text-decoration:none;border-radius:4px;font-weight:bold;font-size:14px;display:inline-block">View Program Calendar</a>
         </td>
       </tr>
-
-      <!-- PLATFORM -->
       <tr>
-        <td style="padding:0 36px 22px;font-size:14px;color:var(--sub);line-height:1.7">
+        <td style="padding:0 36px 22px;font-size:14px;color:#6B7280;line-height:1.7">
           <b>Get Started on the Platform</b><br><br>
-          1. Login: <a href="https://www.upgrad.com/lxp/" style="color:var(--red)">https://www.upgrad.com/lxp/</a><br>
+          1. Login: <a href="https://www.upgrad.com/lxp/" style="color:#E31C3D">https://www.upgrad.com/lxp/</a><br>
           2. Navigate to <b>My Courses</b> and start exploring the preparatory content.
         </td>
       </tr>
-
-      <!-- CTA: TELEGRAM -->
       <tr>
         <td align="center" style="padding:8px 36px 26px">
-          <a href="https://t.me/+cxNbCRAPfZpmZTY1" style="background:#0088cc;color:white;padding:11px 26px;text-decoration:none;border-radius:4px;font-weight:bold;font-size:14px;display:inline-block">
-            Join Telegram Group
-          </a>
+          <a href="https://t.me/+cxNbCRAPfZpmZTY1" style="background:#0088cc;color:white;padding:11px 26px;text-decoration:none;border-radius:4px;font-weight:bold;font-size:14px;display:inline-block">Join Telegram Group</a>
         </td>
       </tr>
-
-      <!-- WEBINAR -->
       <tr>
-        <td style="padding:0 36px 30px;font-size:14px;color:var(--sub);line-height:1.7">
-          <h3 style="color:var(--tx);font-size:1rem;margin:0 0 12px">Welcome Webinar</h3>
+        <td style="padding:0 36px 30px;font-size:14px;color:#6B7280;line-height:1.7">
+          <h3 style="color:#0B1F4B;font-size:1rem;margin:0 0 12px">Welcome Webinar</h3>
           <b>Date:</b> 4th April 2026<br>
           <b>Time:</b> 11:00 AM – 1:00 PM IST<br><br>
           <b>Agenda</b>
@@ -1016,14 +1170,11 @@ footer{background:#0B3D91;padding:1.8rem 3rem;display:grid;grid-template-columns
           We look forward to supporting you throughout this exciting journey.
         </td>
       </tr>
-
-      <!-- FOOTER -->
       <tr>
-        <td style="background:var(--s1);padding:22px 36px;text-align:center;font-size:13px;color:var(--sub);border-top:1px solid #eee">
+        <td style="background:#f0f5ff;padding:22px 36px;text-align:center;font-size:13px;color:#6B7280;border-top:1px solid #eee">
           <b>Team upGrad</b><br>Empowering your learning journey
         </td>
       </tr>
-
       </table>
       </td></tr>
       </table>
@@ -1033,15 +1184,14 @@ footer{background:#0B3D91;padding:1.8rem 3rem;display:grid;grid-template-columns
 
 </div><!-- /pg -->
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* THEME */
 function toggleTheme(){
   const d=document.documentElement;
   const isDark=d.dataset.theme==='dark';
   d.dataset.theme=isDark?'light':'dark';
-  document.getElementById('themeBtn').textContent=isDark?'☀ Light':'◑ Dark';
+  document.getElementById('themeBtn').textContent=isDark?'◑ Dark':'☀ Light';
 }
-// Init: default light
 document.getElementById('themeBtn').textContent='◑ Dark';
 
 /* CURSOR */
@@ -1049,7 +1199,7 @@ const cd=document.getElementById('cd'),cr=document.getElementById('cr');
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
 (function L(){cd.style.transform=`translate(${mx}px,${my}px) translate(-50%,-50%)`;rx+=(mx-rx)*.13;ry+=(my-ry)*.13;cr.style.transform=`translate(${rx}px,${ry}px) translate(-50%,-50%)`;requestAnimationFrame(L)})();
-document.querySelectorAll('a,button,.ag,.on,.qc,.sn,.fc,.ob-tab').forEach(el=>{
+document.querySelectorAll('a,button,.ag,.stair-card,.support-card,.qc,.sn,.jc,.ob-tab').forEach(el=>{
   el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));
   el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
 });
@@ -1072,15 +1222,15 @@ const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.tar
 document.querySelectorAll('.rv,.rx').forEach(el=>io.observe(el));
 
 /* STAGGER */
-['.ag','.fc','.dstat','.sop-c','.wb-row','.qc','.ob-item'].forEach(sel=>{
+['.ag','.jc','.dstat','.sop-c','.wb-row','.qc','.support-card'].forEach(sel=>{
   document.querySelectorAll(sel).forEach((el,i)=>el.style.transitionDelay=`${i*.05}s`);
 });
 
 /* BARS */
 const bio=new IntersectionObserver(es=>{
-  es.forEach(e=>{if(e.isIntersecting)e.target.querySelectorAll('.dcb-f,.br-f').forEach(b=>{if(b.dataset.w)b.style.width=b.dataset.w+'%'})});
+  es.forEach(e=>{if(e.isIntersecting)e.target.querySelectorAll('.dcb-f').forEach(b=>{if(b.dataset.w)b.style.width=b.dataset.w+'%'})});
 },{threshold:.1});
-document.querySelectorAll('.demo-cell,.deg-wrap,.demo-grid').forEach(el=>bio.observe(el));
+document.querySelectorAll('.demo-cell,.demo-grid').forEach(el=>bio.observe(el));
 
 /* COUNTERS */
 function cnt(el){
@@ -1093,16 +1243,11 @@ function cnt(el){
     if(p<1) requestAnimationFrame(f); else el.textContent=t;
   })(s);
 }
-function runAllCounters(){
-  document.querySelectorAll('.ctr[data-to]').forEach(cnt);
-}
-// Fire on page load after hero animation completes
-setTimeout(runAllCounters, 800);
-// Also fire on scroll for demographics
+setTimeout(()=>document.querySelectorAll('.ctr[data-to]').forEach(cnt), 800);
 const cio=new IntersectionObserver(es=>{
   es.forEach(e=>{if(e.isIntersecting) e.target.querySelectorAll('.ctr[data-to]').forEach(cnt)});
-},{threshold:.1, rootMargin:'0px 0px -10% 0px'});
-document.querySelectorAll('.hstat,.hero-kpis,.demo-top,.hero-r').forEach(el=>cio.observe(el));
+},{threshold:.1});
+document.querySelectorAll('.hero-kpis,.demo-top').forEach(el=>cio.observe(el));
 
 function showTab(i){
   document.querySelectorAll('.ob-tab').forEach((t,j)=>t.classList.toggle('act',i===j));
@@ -1110,6 +1255,21 @@ function showTab(i){
 }
 
 document.addEventListener('keydown',e=>{if(e.key==='Escape')document.getElementById('email-modal').classList.remove('open')});
+
+/* LINK SETTER — lets presenter paste a URL into any link button */
+function promptLink(id, label){
+  const el = document.getElementById(id);
+  const current = (el.getAttribute('href') === '#') ? '' : el.getAttribute('href');
+  const url = window.prompt(label + '\n\nPaste the full URL (e.g. https://...)', current);
+  if(url === null) return;
+  if(url.trim()){
+    el.setAttribute('href', url.trim());
+    el.style.background = '#d1fae5';
+    el.style.borderColor = '#16a34a';
+    el.style.color = '#15803d';
+    setTimeout(()=>{ el.style.background='var(--lblue)'; el.style.borderColor='var(--b20)'; el.style.color='#0B3D91'; }, 1400);
+  }
+}
 </script>
 </body>
 </html>
